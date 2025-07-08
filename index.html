@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrameHub</title>
+    <link rel="icon" href="icon/icon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Palet Tema Gelap (Inspirasi Play Store) */
+            --bg-color: #121212; /* Latar belakang utama yang sangat gelap */
+            --header-bg: #1e1e1e; /* Latar belakang untuk header dan area yang sedikit lebih terang */
+            --border-color: #333333; /* Warna border yang halus */
+            --text-primary: #e8eaed; /* Teks utama (putih pudar) */
+            --text-secondary: #9aa0a6; /* Teks sekunder (abu-abu terang) */
+            --accent-color: #8ab4f8; /* Aksen biru Google untuk mode gelap */
+            --accent-color-darker: #5c85d6; /* Biru yang sedikit lebih gelap untuk gradien */
+            --card-bg: #1e1e1e; /* Latar belakang kartu */
+            --button-bg: #2d2d2d; /* Latar belakang tombol */
+            --button-hover: #3c3c3c; /* Hover tombol */
+            --highlight-color: #8ab4f8; /* Warna highlight (sama dengan aksen) */
+            --success-color: #57bb8a; /* Warna sukses yang lebih cerah */
+            --notification-bg: #282828; /* Latar belakang notifikasi */
+            --info-bg: rgba(138, 180, 248, 0.1); /* Latar belakang info dengan transparansi */
+            --info-border: rgba(138, 180, 248, 0.3); /* Border info */
+            --strikethrough-color: #f28b82; /* Warna coretan (merah muda) */
+
+            /* NEW Premium Colors (using accent blue for consistency) */
+            --premium-color: var(--accent-color); /* Menggunakan warna aksen biru */
+            --premium-background: rgba(138, 180, 248, 0.1); /* Latar belakang premium dengan transparansi aksen biru */
+            --premium-button-bg: var(--accent-color); /* Warna tombol premium */
+            --premium-button-hover: var(--accent-color-darker); /* Warna hover tombol premium */
+
+            --bottom-nav-bg: #1e1e1e; /* Latar belakang navigasi bawah */
+            --bottom-nav-active: #8ab4f8; /* Navigasi aktif */
+            --bottom-nav-inactive: #9aa0a6; /* Navigasi tidak aktif */
+
+            /* Warna Brand Media Sosial yang sesuai dengan tema gelap yang sudah ada */
+            --youtube-color: #FF0000;
+            --telegram-color: #0088CC;
+            --whatsapp-color: #25D366;
+            --gmail-color: #EA4335;
+            --social-icon-base-size: 2.2rem; /* Ukuran dasar ikon sosial */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-bottom: 70px; /* Space for bottom navigation */
+            font-size: 16px; /* Base font size */
+        }
+
+        main {
+            flex-grow: 1; /* Memastikan main content mengisi ruang yang tersedia */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.75rem 1rem; /* 12px 16px */
+            max-width: 1400px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.25rem; /* 20px */
+        }
+
+        header {
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.75rem 0; /* 12px 0 */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; /* 8px */
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+            font-size: 1.6rem;
+        }
+
+        .search-section {
+            padding: 1.875rem 0; /* 30px 0 */
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-input-container {
+            position: relative;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            overflow: hidden;
+            background-color: var(--card-bg);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.875rem 1.25rem 0.875rem 3.125rem; /* 14px 20px 14px 50px */
+            background-color: var(--card-bg);
+            border: none;
+            border-radius: 0;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--accent-color);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.25rem; /* 20px */
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            z-index: 2;
+        }
+
+        .search-tags {
+            display: flex;
+            gap: 0.625rem; /* 10px */
+            margin-top: 1.25rem; /* 20px */
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem; /* 8px 16px */
+            background-color: var(--button-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; /* 8px */
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .tag i {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            transition: color 0.3s;
+        }
+
+        .tag:hover {
+            background-color: var(--button-hover);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .tag.active {
+            background-color: var(--highlight-color);
+            border-color: var(--highlight-color);
+            color: #121212; /* Teks gelap agar kontras dengan latar belakang terang */
+            font-weight: 600;
+        }
+
+        .tag.active i {
+            color: #121212;
+        }
+
+        /* PREMIUM TAG STYLES (UPDATED) */
+        .tag.premium {
+            background-color: var(--premium-background); /* Menggunakan latar belakang aksen biru transparan */
+            border-color: var(--premium-color); /* Menggunakan warna aksen biru */
+            color: var(--premium-color); /* Menggunakan warna aksen biru */
+            font-weight: 600;
+        }
+
+        .tag.premium i {
+            color: var(--premium-color); /* Menggunakan warna aksen biru */
+        }
+
+        .tag.premium.active {
+            background-color: var(--premium-color); /* Menggunakan warna aksen biru */
+            border-color: var(--premium-color); /* Menggunakan warna aksen biru */
+            color: #121212; /* Teks gelap untuk kontras */
+        }
+
+        .tag.premium.active i {
+            color: #121212;
+        }
+
+        .tag.shortlink s {
+            text-decoration: none;
+            position: relative;
+        }
+
+        .tag.shortlink s::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+            background-color: var(--strikethrough-color);
+            transform: translateY(-50%) rotate(-5deg);
+            width: 100%;
+        }
+        .tag.shortlink.active i {
+            color: var(--strikethrough-color);
+        }
+
+        /* --- Notifikasi Bubble untuk Tag --- */
+        .notification-bubble {
+            background-color: var(--strikethrough-color);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 12px;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            min-width: 24px;
+            text-align: center;
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(242, 139, 130, 0.2);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            transform: scale(0);
+            animation: bounceIn 0.5s forwards;
+            animation-delay: 0.2s;
+        }
+
+        /* Animasi untuk notifikasi bubble */
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            70% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Kelas untuk menyembunyikan bubble */
+        .notification-bubble.hidden-bubble {
+            display: none;
+        }
+        /* --- Akhir Notifikasi Bubble --- */
+
+        .main-content {
+            flex-grow: 1;
+            padding: 1.875rem 0; /* 30px 0 */
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 1.5625rem; /* 25px */
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5625rem; /* 25px */
+        }
+
+        .module-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.25rem; /* 20px */
+            transition: all 0.3s ease-out;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px;
+        }
+
+        .module-card.show {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .module-card.hidden {
+            display: none;
+        }
+
+        .module-card.notification-card {
+            background-color: var(--info-bg);
+            border-color: var(--info-border);
+            text-align: center;
+            padding: 1.875rem 1.25rem; /* 30px 20px */
+            grid-column: 1 / -1;
+            opacity: 1;
+            transform: translateY(0);
+            min-height: auto;
+        }
+
+        .module-card.notification-card .module-title {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin-bottom: 0.625rem; /* 10px */
+        }
+
+        .module-card.notification-card .module-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            white-space: pre-line;
+            display: block;
+        }
+
+        .module-card.notification-card .module-author,
+        .module-card.notification-card .module-meta,
+        .module-card.notification-card .download-btn {
+            display: none;
+        }
+
+        /* MODIFIKASI UNTUK JUDUL MODULES DAN BADGE TRENDING */
+        .module-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem; /* 8px */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.625rem; /* 10px */
+            flex-wrap: wrap;
+        }
+
+        .trending-badge {
+            background: linear-gradient(90deg, var(--accent-color-darker) 0%, var(--accent-color) 100%);
+            color: #121212;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            margin-left: auto;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .trending-badge i {
+            font-size: 0.75em;
+            color: #121212;
+        }
+
+        /* PREMIUM BADGE STYLES (UPDATED) */
+        .premium-badge {
+            background: linear-gradient(90deg, var(--accent-color-darker) 0%, var(--premium-color) 100%);
+            color: #121212;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            margin-left: auto;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .premium-badge i {
+            font-size: 0.75em;
+            color: #121212;
+        }
+        /* AKHIR MODIFIKASI JUDUL MODULES DAN BADGE TRENDING */
+
+        .module-author {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem; /* 8px */
+        }
+
+        .module-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.9375rem; /* 15px */
+            flex-wrap: wrap; /* Added for responsiveness */
+            gap: 0.5rem; /* Added for responsiveness */
+        }
+
+        .module-category {
+            background-color: rgba(138, 180, 248, 0.1);
+            color: var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* PREMIUM CATEGORY BADGE (UPDATED) */
+        .module-category.premium {
+            background-color: var(--premium-background);
+            color: var(--premium-color);
+        }
+
+        .module-version {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .module-description {
+            display: none;
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 0.625rem; /* 10px */
+            background-color: var(--button-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem; /* 8px */
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+            margin-top: auto;
+        }
+
+        .download-btn:hover {
+            background-color: var(--button-hover);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .download-btn:active {
+            transform: translateY(2px);
+        }
+
+        /* PREMIUM DOWNLOAD BUTTON (UPDATED) */
+        .download-btn.premium-download {
+            background-color: var(--premium-button-bg);
+            border-color: var(--premium-button-bg);
+            color: #121212;
+        }
+
+        .download-btn.premium-download:hover {
+            background-color: var(--premium-button-hover);
+            border-color: var(--premium-button-hover);
+            color: #121212;
+        }
+
+        .download-btn .progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .notification {
+            position: fixed;
+            top: 1.25rem; /* 20px */
+            right: 1.25rem; /* 20px */
+            background-color: var(--notification-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.9375rem 1.25rem; /* 15px 20px */
+            display: flex;
+            align-items: center;
+            gap: 0.75rem; /* 12px */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(138, 180, 248, 0.2);
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification i {
+            font-size: 1.4rem;
+            color: var(--success-color);
+        }
+
+        .notification-content h4 {
+            margin-bottom: 4px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .notification-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2.5rem 1.25rem; /* 40px 20px */
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 1.25rem; /* 20px */
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.625rem; /* 10px */
+            color: var(--text-primary);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--bottom-nav-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.625rem 0; /* 10px 0 */
+            border-top: 1px solid var(--border-color);
+            z-index: 100;
+            box-shadow: 0 -1px 5px rgba(0,0,0,0.3); /* Added shadow for depth */
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--bottom-nav-inactive);
+            font-size: 0.75rem;
+            transition: all 0.3s;
+            flex: 1; /* Distribute items evenly */
+            max-width: 120px; /* Limit width for larger screens */
+        }
+
+        .nav-item i {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: var(--bottom-nav-active);
+        }
+
+        .nav-item:hover {
+            color: var(--bottom-nav-active);
+        }
+
+        /* Page styles */
+        .page {
+            display: none;
+            /* Padding for pages is handled by .main-content */
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.25rem; /* 20px */
+            color: var(--text-primary);
+        }
+
+        .page-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* New About Page Specific Styles */
+        .about-section {
+            padding: 3.75rem 0; /* 60px 0 */
+            min-height: calc(100vh - 60px - 70px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .about-content {
+            display: block;
+            text-align: center;
+        }
+
+        .about-section h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem; /* 20px */
+            color: var(--text-primary);
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards 0.2s;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem; /* 20px */
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards 0.4s;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .team-section {
+            padding: 3.75rem 0; /* 60px 0 */
+            text-align: center;
+        }
+
+        .team-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2.5rem; /* 40px */
+            color: var(--text-primary);
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards 0.3s;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.875rem; /* 30px */
+        }
+
+        .team-member {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.875rem; /* 30px */
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards calc(var(--animation-delay) * 0.1s + 0.5s);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.25rem; /* 20px */
+        }
+
+        .team-member h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.3125rem; /* 5px */
+            color: var(--text-primary);
+        }
+
+        .team-member p.position {
+            color: var(--text-primary);
+            font-weight: bold;
+            margin-bottom: 0.9375rem; /* 15px */
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .team-member p.bio {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+            min-height: auto;
+            display: block;
+            overflow: visible;
+            text-overflow: clip;
+        }
+
+        .social-follow-section {
+            padding: 2.5rem 0; /* 40px 0 */
+            text-align: center;
+            margin-top: 2.5rem; /* 40px */
+            margin-bottom: 2.5rem; /* 40px */
+        }
+
+        .social-follow-section h2 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 1.875rem; /* 30px */
+            font-weight: bold;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem; /* 20px */
+        }
+
+        .social-icons a {
+            font-size: var(--social-icon-base-size);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--button-bg);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Warna ikon spesifik */
+        .social-icons a.youtube { color: var(--youtube-color); }
+        .social-icons a.telegram { color: var(--telegram-color); }
+        .social-icons a.whatsapp { color: var(--whatsapp-color); }
+        .social-icons a.gmail { color: var(--gmail-color); }
+
+        /* Efek hover yang lebih menarik */
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Efek background saat hover (opsional, bisa diganti dengan efek lain) */
+        .social-icons a.youtube:hover { background-color: rgba(255, 0, 0, 0.2); }
+        .social-icons a.telegram:hover { background-color: rgba(0, 136, 204, 0.2); }
+        .social-icons a.whatsapp:hover { background-color: rgba(37, 211, 102, 0.2); }
+        .social-icons a.gmail:hover { background-color: rgba(234, 67, 53, 0.2); }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 992px) {
+            .about-section h1, .about-section p, .team-section h2, .team-member {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .header-container {
+                justify-content: center;
+            }
+            .social-icons {
+                gap: 1rem; /* 16px */
+            }
+            .social-icons a {
+                width: 50px;
+                height: 50px;
+                font-size: calc(var(--social-icon-base-size) * 0.9);
+            }
+            .modules-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.25rem; /* 20px */
+            }
+            .tag {
+                padding: 0.4rem 0.8rem; /* Adjusted for smaller screens */
+                font-size: 0.85rem;
+                gap: 0.4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 15px; /* Slightly smaller base font size */
+            }
+            .modules-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Adjusted minmax for better fit */
+                gap: 1rem; /* 16px */
+            }
+
+            .module-card {
+                padding: 1rem; /* 16px */
+                min-height: 160px; /* Adjusted min-height */
+            }
+
+            .module-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .module-author,
+            .module-version {
+                font-size: 0.8rem;
+            }
+
+            .module-meta {
+                margin-bottom: 0.8rem;
+                flex-direction: column; /* Stack category and version */
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+
+            .module-category {
+                padding: 3px 8px; /* Smaller padding */
+                font-size: 0.75rem;
+            }
+
+            .download-btn {
+                padding: 0.7rem; /* 11.2px */
+                font-size: 0.9rem;
+                gap: 0.4rem;
+            }
+
+            .trending-badge, .premium-badge {
+                font-size: 0.65rem;
+                padding: 1px 5px;
+            }
+
+            .notification {
+                width: calc(100% - 2.5rem); /* 40px */
+                left: 1.25rem; /* 20px */
+                right: 1.25rem; /* 20px */
+                top: 1rem; /* Adjusted top position */
+                transform: translateY(-150%);
+                padding: 0.8rem 1rem;
+                align-items: flex-start; /* Align icon and text at top */
+            }
+
+            .notification.show {
+                transform: translateY(0);
+            }
+
+            .notification-content h4 {
+                font-size: 1rem;
+            }
+            .notification-content p {
+                font-size: 0.8rem;
+            }
+
+            .module-card.notification-card {
+                padding: 1.25rem 1rem; /* 20px 16px */
+            }
+
+            .module-card.notification-card .module-title {
+                font-size: 1.2rem;
+            }
+
+            .module-card.notification-card .module-description {
+                font-size: 0.85rem;
+            }
+
+            .header-container {
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 0 1.25rem; /* 20px */
+            }
+
+            .logo {
+                margin-bottom: 0;
+                font-size: 1.2rem;
+            }
+
+            .logo i {
+                font-size: 1.4rem;
+            }
+
+            /* Responsive for About sections */
+            .about-section {
+                padding: 2.5rem 0; /* 40px 0 */
+            }
+            .about-section h1 {
+                font-size: 1.8rem;
+            }
+            .about-section p {
+                font-size: 0.9rem;
+            }
+            .team-section {
+                padding: 2.5rem 0; /* 40px 0 */
+            }
+            .team-section h2 {
+                font-size: 2rem;
+                margin-bottom: 1.875rem; /* 30px */
+            }
+            .team-member {
+                padding: 1.5rem; /* 24px */
+            }
+            .team-member img {
+                width: 90px;
+                height: 90px;
+                margin-bottom: 1rem; /* 16px */
+            }
+            .team-member h3 {
+                font-size: 1.1rem;
+            }
+            .team-member p.position {
+                font-size: 0.85rem;
+                margin-bottom: 0.8rem;
+            }
+            .team-member p.bio {
+                font-size: 0.85rem;
+            }
+            .social-follow-section {
+                padding: 1.875rem 0; /* 30px 0 */
+                margin-top: 1.875rem; /* 30px */
+                margin-bottom: 1.875rem; /* 30px */
+            }
+            .social-follow-section h2 {
+                font-size: 1.6rem;
+                margin-bottom: 1.25rem; /* 20px */
+            }
+            .social-icons a {
+                width: 40px;
+                height: 40px;
+                font-size: calc(var(--social-icon-base-size) * 0.7);
+            }
+            .search-input {
+                padding: 0.75rem 1rem 0.75rem 2.8rem; /* Adjusted padding */
+                font-size: 0.9rem;
+            }
+            .search-icon {
+                left: 1rem;
+                font-size: 1.1rem;
+            }
+            .search-tags {
+                gap: 0.5rem;
+            }
+            .tag {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.7rem;
+                gap: 0.4rem;
+            }
+            .notification-bubble {
+                font-size: 0.65rem;
+                padding: 1px 6px;
+                min-width: 20px;
+                top: -6px;
+                right: -6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px; /* Even smaller base font size for very small screens */
+            }
+            .container {
+                padding: 0 1rem; /* 16px */
+            }
+            .modules-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Adjusted minmax for smaller cards */
+                gap: 0.8rem; /* 12px */
+            }
+            .module-card {
+                min-height: 150px; /* Adjusted min-height */
+                padding: 0.8rem; /* 12px */
+            }
+            .module-title {
+                font-size: 1rem;
+            }
+            .module-author,
+            .module-version {
+                font-size: 0.75rem;
+            }
+            .module-category {
+                font-size: 0.7rem;
+                padding: 2px 6px;
+            }
+            .download-btn {
+                font-size: 0.85rem;
+                padding: 0.6rem;
+            }
+            .social-icons {
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+                gap: 0.8rem; /* 12px */
+            }
+            .social-icons a {
+                width: 35px;
+                height: 35px;
+                font-size: calc(var(--social-icon-base-size) * 0.6);
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .search-input {
+                padding: 0.6rem 0.8rem 0.6rem 2.5rem; /* Further adjusted padding */
+                font-size: 0.85rem;
+            }
+            .search-icon {
+                left: 0.8rem;
+                font-size: 1rem;
+            }
+            .tag {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.6rem;
+                gap: 0.3rem;
+            }
+            .bottom-nav {
+                padding: 0.5rem 0; /* 8px */
+            }
+            .nav-item {
+                font-size: 0.7rem;
+            }
+            .nav-item i {
+                font-size: 1.3rem;
+            }
+            .notification {
+                padding: 0.7rem 0.8rem;
+                gap: 0.6rem;
+            }
+            .notification i {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>FrameHub</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="page active" id="home-page">
+        <section class="search-section">
+            <div class="container">
+                <div class="search-container">
+                    <div class="search-input-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Cari modul...">
+                    </div>
+                    <div class="search-tags" id="searchTags">
+                        <div class="tag active" data-category="all"><i class="fas fa-grip-horizontal"></i> Semua</div>
+                        <div class="tag" data-category="vexiro"><i class="fas fa-user-tie"></i> Vexiro</div>
+                        <div class="tag" data-category="brevent"><i class="fas fa-microchip"></i> Brevent</div>
+                        <div class="tag" data-category="magiks"><i class="fas fa-hat-wizard"></i> Magiks</div>
+                        <div class="tag" data-category="trending"><i class="fas fa-chart-line"></i> Populer</div>
+                        <div class="tag" data-category="latest" id="latestTagButton"><i class="fas fa-clock"></i> Terbaru
+                            <span class="notification-bubble" id="latestNotificationBubble">7</span>
+                        </div>
+                        <div class="tag" data-category="pemberitahuan"><i class="fas fa-bell"></i> Info
+                            <span class="notification-bubble" id="notificationBubble">1</span>
+                        </div>
+                        <div class="tag premium" data-category="premium"><i class="fas fa-gem"></i> Premium</div>
+                        <div class="tag shortlink" data-category="shortlink"><i class="fas fa-link"></i> <s>Shortlink</s></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <main class="main-content">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Modul FrameHub</h2>
+                </div>
+
+                <div class="modules-grid" id="modulesGrid">
+                    <div class="module-card notification-card" id="notificationModuleCard">
+                        <h3 class="module-title">Pembaruan Sistem Penting!</h3>
+                        <p class="module-description">
+                            Website ini baru saja mengalami pembaruan besar untuk meningkatkan kinerja dan fitur.<br>
+                            Kemungkinan beberapa modul lama sedang kami perbarui dan akan segera tersedia kembali.<br>
+                            Kami mohon maaf atas ketidaknyamanan yang mungkin timbul.
+                        </p>
+                    </div>
+
+                    <div class="module-card" data-category="brevent shortlink latest">
+                        <h3 class="module-title">performance-ai(non-root)v1.4</h3>
+                        <p class="module-author">Dibuat oleh @reljawa</p>
+                        <div class="module-meta">
+                            <span class="module-category">Brevent</span>
+                            <span class="module-version">v1.4</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="performance-ai(non-root)v1.4" data-download-url="https://www.mediafire.com/file/tht1k21k6ugdud5/performance-ai(non-root)v1.4+Webui+(Safefileku).zip/file">
+                            <i class="fas fa-download"></i> Unduh Modul
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="module-card" data-category="brevent premium latest trending">
+                        <h3 class="module-title">
+                            Remove Sampah Modules
+                        </h3>
+                        <p class="module-author">Dibuat oleh @ulislaser </p>
+                        <div class="module-meta">
+                            <span class="module-category premium">Brevent</span>
+                            <span class="module-version">Vip</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="Remove Sampah Modules" data-download-url="https://sfl.gl/zyPFYZf">
+                            <i class="fas fa-download"></i> Unduh Modul
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="module-card" data-category="brevent latest shortlink">
+                        <h3 class="module-title">AeroBoost-1.1.0000-Stable</h3>
+                        <p class="module-author">Dibuat oleh @Banglev</p>
+                        <div class="module-meta">
+                            <span class="module-category">Brevent</span>
+                            <span class="module-version">v1.1.0000</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="AeroBoost-1.1.0000-Stable" data-download-url="https://www.mediafire.com/file/7dp2efi7ia6g0bl/AeroBoost-1.1.0000-Stable.zip/file">
+                            <i class="fas fa-download"></i> Unduh Modul
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="module-card" data-category="brevent latest shortlink">
+                        <h3 class="module-title">AeroBoost-1.2.0001-stable</h3>
+                        <p class="module-author">Dibuat oleh @Banglev</p>
+                        <div class="module-meta">
+                            <span class="module-category">Brevent</span>
+                            <span class="module-version">v1.2.0001</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="AeroBoost-1.2.0001-stable" data-download-url="https://www.mediafire.com/file/wrkhuny29ujqt5z/AeroBoost-1.2.0001-stable.zip/file">
+                            <i class="fas fa-download"></i> Unduh Modul
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="module-card" data-category="brevent latest shortlink">
+                        <h3 class="module-title">RenderX-1.0.001</h3>
+                        <p class="module-author">Dibuat oleh @Banglev</p>
+                        <div class="module-meta">
+                            <span class="module-category">Brevent</span>
+                            <span class="module-version">v1.0.001</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="RenderX-1.0.001" data-download-url="https://www.mediafire.com/file/vc8rlsyh5kr9qto/RenderX-1.0.001.zip/file">
+                            <i class="fas fa-download"></i> Unduh Modul
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="module-card" data-category="brevent latest shortlink">
+                        <h3 class="module-title">RenderX-1.1.012</h3>
+                        <p class="module-author">Dibuat oleh @Banglev</p>
+                        <div class="module-meta">
+                            <span class="module-category">Brevent</span>
+                            <span class="module-version">v1.1.012</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="RenderX-1.1.012" data-download-url="https://www.mediafire.com/file/ufra94fefhxtujz/RenderX-1.1.012.zip/file">
+                            <i class="fas fa-download"></i> Unduh Modul
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="module-card" data-category="brevent latest shortlink">
+                        <h3 class="module-title">VULKAN PERF+</h3>
+                        <p class="module-author">Dibuat oleh @limit Gaming Ganteng</p>
+                        <div class="module-meta">
+                            <span class="module-category">Brevent</span>
+                            <span class="module-version"></span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="VULKAN PERF+" data-download-url="https://www.mediafire.com/file/gselnxfipcuqz5w/VULKAN_PERF++(SHELL)+!!+NO+PASSWORD+!!.zip/file">
+                            <i class="fas fa-download"></i> Unduh Modul
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="module-card" data-category="vexiro shortlink">
+                        <h3 class="module-title">REVOLUTION REVOX ♨️</h3>
+                        <p class="module-author">Dibuat oleh @traatweak @cakra</p>
+                        <div class="module-meta">
+                            <span class="module-category">Vexiro</span>
+                            <span class="module-version">v1.0</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="REVOLUTION REVOX ♨️" data-download-url="https://www.mediafire.com/file/00xj8bql2hjpv59/RevolutionRevox_v1.0_%25E2%2599%25A8%25EF%25B8%258F.zip/file">
+                            <i class="fas fa-download"></i> Unduh Modul
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="module-card" data-category="vexiro shortlink">
+                        <h3 class="module-title">REVOLUTION REVOX ♨️</h3>
+                        <p class="module-author">Dibuat oleh @traatweak @cakra</p>
+                        <div class="module-meta">
+                            <span class="module-category">Vexiro</span>
+                            <span class="module-version">v1.2</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="REVOLUTION REVOX ♨️" data-download-url="https://www.mediafire.com/file/fgisoiagfxgom24/RevoxRevolution_v1.2_%25E2%2599%25A8%25EF%25B8%258F.zip/file">
+                            <i class="fas fa-download"></i> Unduh Modul
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="module-card" data-category="vexiro shortlink">
+                        <h3 class="module-title">Revolution CleanX ♨️</h3>
+                        <p class="module-author">Dibuat oleh @traatweak @cakra</p>
+                        <div class="module-meta">
+                            <span class="module-category">Vexiro</span>
+                            <span class="module-version">v1.0</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="Revolution CleanX ♨️" data-download-url="https://www.mediafire.com/file/joh0qwn4bwpjobp/Revolution_CleanX-v1.0_%25E2%2599%25A8%25EF%25B8%258F.zip/file">
+                            <i class="fas fa-download"></i> Unduh Modul
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="no-results" id="noResultsMessage">
+                        <i class="fas fa-search"></i>
+                        <h3>Modul Tidak Ditemukan</h3>
+                        <p>Coba sesuaikan pencarian atau kriteria filter Anda</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="page" id="apps-page">
+        <section class="search-section">
+            <div class="container">
+                <div class="search-container">
+                    <div class="search-input-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" id="appSearchInput" placeholder="Cari aplikasi...">
+                    </div>
+                    <div class="search-tags" id="appSearchTags">
+                        <div class="tag active" data-category="all"><i class="fas fa-grip-horizontal"></i> Semua</div>
+                        <div class="tag" data-category="latest"><i class="fas fa-clock"></i> Terbaru</div>
+                        <div class="tag premium" data-category="premium"><i class="fas fa-gem"></i> Premium</div>
+                        <div class="tag" data-category="trending"><i class="fas fa-chart-line"></i> Populer</div>
+                        <div class="tag shortlink" data-category="shortlink"><i class="fas fa-link"></i> <s>Shortlink</s></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <main class="main-content">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Aplikasi FrameHub</h2>
+                </div>
+
+                <div class="modules-grid" id="appsGrid">
+
+                    <div class="module-card" data-category="latest shortlink">
+                        <h3 class="module-title">PerfMon-(FPS Meter)</h3>
+                        <p class="module-author">Dikembangkan oleh @libxzr</p>
+                        <div class="module-meta">
+                            <span class="module-category">Alat</span>
+                            <span class="module-version">v1.5</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="PerfMon-(FPS Meter)" data-download-url="https://www.mediafire.com/file/i7pm6kqw0o8zqps/PerfMon-(FPS+Meter)-12-v1.5.apk/file">
+                            <i class="fas fa-download"></i> Unduh Aplikasi
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="module-card" data-category="premium trending latest">
+                        <h3 class="module-title">
+                            MagicTuner Pro
+                            <span class="premium-badge">
+                                <i class="fas fa-star"></i> Premium
+                            </span>
+                        </h3>
+                        <p class="module-author">Dikembangkan oleh @Banglevv</p>
+                        <div class="module-meta">
+                            <span class="module-category premium">Premium</span>
+                            <span class="module-version">v5.1.1.20250527</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="MagicTuner Pro" data-download-url="https://sfl.gl/vN4oa">
+                            <i class="fas fa-download"></i> Unduh Aplikasi
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+                    
+                    <div class="module-card" data-category="premium trending latest">
+                        <h3 class="module-title">
+                            MagicTweak Pro
+                            <span class="premium-badge">
+                                <i class="fas fa-star"></i> Premium
+                            </span>
+                        </h3>
+                        <p class="module-author">Dikembangkan oleh @Banglevv</p>
+                        <div class="module-meta">
+                            <span class="module-category premium">Premium</span>
+                            <span class="module-version">v1.8.3.20250619</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="MagicTweak Pro" data-download-url="https://sfl.gl/mizMpMVg">
+                            <i class="fas fa-download"></i> Unduh Aplikasi
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="module-card" data-category="latest shortlink trending">
+                        <h3 class="module-title">VexiroRevolution</h3>
+                        <p class="module-author">Dikembangkan oleh @traatweak</p>
+                        <div class="module-meta">
+                            <span class="module-category">Peningkat Game Harian</span>
+                            <span class="module-version">v3.8.0</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="VexiroRevolution" data-download-url="https://www.mediafire.com/file/vr98vb61wmjzb89/VexiroRevolution-v3.8.0.apk/file">
+                            <i class="fas fa-download"></i> Unduh Aplikasi
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="module-card" data-category="trending last shortlink">
+                        <h3 class="module-title">
+                             Multicor Priority
+                        </h3>
+                        <p class="module-author">Dikembangkan oleh @Rem01</p>
+                        <div class="module-meta">
+                            <span class="module-category">Peningkat Game</span>
+                            <span class="module-version">v2.0</span>
+                        </div>
+                        <button class="download-btn premium-download" data-module="Multicor Priority" data-download-url="https://www.mediafire.com/file/ua890bkq023hgaq/Multicor+Priority_2.0.zip/file">
+                            <i class="fas fa-download"></i> Unduh Aplikasi
+                            <span class="progress"></span>
+                        </button>
+                    </div>
+
+                    <div class="no-results" id="noAppResultsMessage">
+                        <i class="fas fa-search"></i>
+                        <h3>Aplikasi Tidak Ditemukan</h3>
+                        <p>Coba sesuaikan pencarian atau kriteria filter Anda</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="page" id="about-page">
+        <section class="about-section">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h1>Tentang FrameHub</h1>
+                        <p>FrameHub hadir sejak 04 Juli 2025 sebagai pusat berbagi modul dan aplikasi berkualitas tinggi. Kami menyediakan berbagai Frame unggulan yang terorganisir dalam beberapa kategori utama: Vexiro, Brevent, dan Magiks. Komitmen kami adalah menyajikan solusi terbaik untuk meningkatkan kinerja dan pengalaman digital Anda.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <div class="container">
+                <h2>Tim Pengembang</h2>
+                <div class="team-grid">
+                    <div class="team-member" style="--animation-delay: 0;">
+                        <img src="icon/putra.png" alt="Foto Profil Putra, Pendiri FrameHub" loading="lazy" />
+                        <h3>Putra</h3>
+                        <p class="position">Pendiri</p>
+                        <p class="bio">Bertanggung jawab atas visi keseluruhan Website dan strategi jangka panjang.</p>
+                    </div>
+                    <div class="team-member" style="--animation-delay: 1;">
+                        <img src="icon/cakra.png" alt="Foto Profil Cakra, Wakil Pendiri & Pimpinan Open Source" loading="lazy" />
+                        <h3>Cakra</h3>
+                        <p class="position">Wakil Pendiri & Pimpinan Open Source</p>
+                        <p class="bio">Mendukung Pendiri dan mengawasi inisiatif open source serta kontribusi komunitas.</p>
+                    </div>
+                    <div class="team-member" style="--animation-delay: 2;">
+                        <img src="icon/kaze.png" alt="Foto Profil Kaze, Pimpinan Rekayasa Perangkat Lunak" loading="lazy" />
+                        <h3>Kaze</h3>
+                        <p class="position">Rekayasa Perangkat Lunak</p>
+                        <p class="bio">Bertugas merancang, mengembangkan, dan memelihara inti Semua Modul Yang kami Bagikan.</p>
+                    </div>
+                    <div class="team-member" style="--animation-delay: 3;">
+                        <img src="icon/mail.png" alt="Foto Profil Mail, Pengembang Modul" loading="lazy" />
+                        <h3>Mail</h3>
+                        <p class="position">Pengembang Modul</p>
+                        <p class="bio">Fokus pada pengembangan modul spesifik dan komponen tambahan untuk sistem.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="social-follow-section">
+            <div class="container">
+                <h2>Ikuti Kami</h2>
+                <div class="social-icons">
+                    <a href="https://youtube.com/@traaweak?si=JismfLLKjgczKxuZ" target="_blank" class="youtube" aria-label="Kanal YouTube Kami"><i class="fab fa-youtube"></i></a>
+                    <a href="https://t.me/traatweak" target="_blank" class="telegram" aria-label="Kanal Telegram Kami"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://whatsapp.com/channel/0029Vb9bzvs6rsQuhWlvu42G" target="_blank" class="whatsapp" aria-label="Kontak WhatsApp Kami"><i class="fab fa-whatsapp"></i></a>
+                    <a href="mailto:magiksvexiro@gmail.com" class="gmail" aria-label="Alamat Email Kami"><i class="far fa-envelope"></i></a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <div class="notification-content">
+            <h4>Unduhan Dimulai</h4>
+            <p id="notificationText">Modul sedang diunduh...</p>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" data-page="home-page">
+            <i class="fas fa-home"></i>
+            <span>Beranda</span>
+        </a>
+        <a href="#" class="nav-item" data-page="apps-page">
+            <i class="fas fa-rocket"></i>
+            <span>Aplikasi</span>
+        </a>
+        <a href="#" class="nav-item" data-page="about-page">
+            <i class="fas fa-info-circle"></i>
+            <span>Tentang</span>
+        </a>
+    </nav>
+    <script src="script.js"></script>
+</body>
+</html>
