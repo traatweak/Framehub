@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="icon/icon.png" alt="Frame Hub Logo" width="100" />
+</p>
+
 # 🌐 Frame Hub
 
 **Frame Hub** adalah website yang dibuat untuk memudahkan Anda dalam mencari berbagai **modul** dan **aplikasi** yang dapat membantu meningkatkan performa perangkat Anda
@@ -21,14 +25,14 @@ Memberikan akses cepat dan mudah ke berbagai modul atau tools yang berguna melal
 
 ## 🤝 Kontribusi
 
-Project ini bersifat open source.  
+Project ini bersifat open source  
 Jika Anda memiliki ide atau ingin ikut berkontribusi silakan buat pull request
 
 ---
 
 ## 📫 Kontak
 
-- Email magiksvexiro@gmail.com
+- Email: magiksvexiro@gmail.com
 
 ---
 
