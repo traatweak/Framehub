@@ -1,37 +1,36 @@
-🌐 Frame Hub
+# 🌐 Frame Hub
 
-Frame Hub adalah website yang dibuat untuk memudahkan 
-Anda dalam mencari berbagai modul dan aplikasi yang 
-dapat membantu meningkatkan performa perangkat Anda
+**Frame Hub** adalah website yang dibuat untuk memudahkan Anda dalam mencari berbagai **modul** dan **aplikasi** yang dapat membantu meningkatkan performa perangkat Anda.
 
-Semua konten tersedia secara gratis dan dihosting 
-menggunakan GitHub Pages sehingga dapat diakses kapan 
-saja dan di mana saja
+Semua konten tersedia secara gratis dan dihosting menggunakan **GitHub Pages**, sehingga dapat diakses kapan saja dan di mana saja tanpa batasan.
 
-📥 Ingin Menggunakan Template Website Ini?
+---
 
-Jika Anda tertarik untuk menggunakan template website ini, 
-silakan saja!
+## 🔍 Tujuan Project
 
-⚙️ Teknologi yang Digunakan
+Memberikan akses cepat dan mudah ke berbagai modul atau tools yang berguna, melalui tampilan web yang ringan dan sederhana.
 
-HTML5 & CSS3
+---
 
-GitHub Pages (untuk hosting)
+## ⚙️ Teknologi yang Digunakan
 
-Struktur ringan dan mudah diedit
+- HTML5 & CSS3  
+- GitHub Pages (untuk hosting)
 
+---
 
-🤝 Kontribusi
+## 🤝 Kontribusi
 
-Kontribusi sangat terbuka!
-Jika Anda memiliki template atau fitur tambahan yang ingin 
-dibagikan silakan buat Pull Request
+Project ini bersifat open source.  
+Jika Anda memiliki ide atau ingin ikut berkontribusi, silakan buat pull request.
 
+---
 
-📫 Kontak
+## 📫 Kontak
 
-Email magiksvexiro@gmail.com
+- Email: your.email@example.com  
+- Instagram: [@yourusername](https://instagram.com/yourusername)
 
-Dibuat dengan semangat berbagi oleh [ @traatweak ]
-Terima kasih sudah menggunakan Frame Hub!
+---
+
+> Dibuat dengan semangat berbagi oleh **@traatweak**
